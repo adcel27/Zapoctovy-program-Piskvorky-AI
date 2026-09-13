@@ -333,6 +333,9 @@ class InteractiveGomokuEngine:
             path.append(best_move)
             self.make_move(best_move[0], best_move[1], curr_player)
 
+            print(f"Tah {step + 1}: Hráč {curr_player} zahrál na souřadnice [{best_move[0]}, {best_move[1]}]")
+            self.print_board()
+            
             if self.check_five(curr_player):
                 winner = curr_player
                 break
@@ -387,14 +390,21 @@ def play_match_vs_ai(engine, start_player=PLAYER_O):
 
     ai_player = PLAYER_O if human_player == PLAYER_X else PLAYER_X
     
-    try:
-        t_depth = input("Obtížnost AI / hloubka hledání (doporučeno 6): ").strip()
-        t_depth = int(t_depth) if t_depth else 6
-    except:
+    print("\nZvolte obtížnost počítače:")
+    print("1 - Lehká (hloubka 4)")
+    print("2 - Střední (hloubka 6)")
+    print("3 - Těžká (hloubka 8)")
+    diff_choice = input("Volba (1-3, výchozí 2): ").strip()
+
+    if diff_choice == '1':
+        t_depth = 4
+    elif diff_choice == '3':
+        t_depth = 8
+    else:
         t_depth = 6
 
     curr_player = start_player
-    print(f"\nHra začíná! Vy hrát za '{human_player}', počítač za '{ai_player}'.")
+    print(f"\nHra začíná! Vy hrajete za '{human_player}', počítač za '{ai_player}'.")
 
     while True:
         engine.print_board()
